@@ -17,10 +17,12 @@ module.exports = async (client) => {
 
 				command.folder = module;
 
-				if (command?.options?.bot_permissions?.length == 0) command.options = { bot_permissions: ["ViewChannel", "SendMessages"] };
-				if (!command?.options?.cooldown) command.options = { cooldown: 10 };
-				if (!command?.options?.ownerOnly) command.options = { ownerOnly: false };
-				if (!command?.options?.devGuildOnly) command.options = { devGuildOnly: false };
+				if (!command.options) command.options = {};
+				command.options.bot_permissions = command.options.bot_permissions || ["ViewChannel", "SendMessages"];
+				command.options.DM = command.options.DM ?? false;
+				command.options.cooldown = command.options.cooldown ?? 10;
+				command.options.ownerOnly = command.options.ownerOnly ?? false;
+				command.options.devGuildOnly = command.options.devGuildOnly ?? false;
 
 				client.commands.set(command.data.name, command);
 			} catch (error) {

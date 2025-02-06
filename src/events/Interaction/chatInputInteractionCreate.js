@@ -15,6 +15,10 @@ module.exports = {
 				return interaction.reply({ content: `${client.functions.getById(`emojis.error`)} Такой команды нет.`, flags: MessageFlags.Ephemeral }).catch();
 			};
 
+			if (command?.options && command.options?.DM) {
+				if (channel?.type != ChannelType.DM) return await interaction.reply({ content: `${client.functions.getById(`emojis.error`)} Эту команду можно использовать только в личных сообщениях.`, flags: MessageFlags.Ephemeral }).catch();
+			};
+
 			if (command.options && command.options?.ownerOnly && !developers.includes(user.id)) {
 				return interaction.reply({ content: `${client.functions.getById(`emojis.error`)} Эта команда недоступна для использования.`, flags: MessageFlags.Ephemeral }).catch();
 			};
